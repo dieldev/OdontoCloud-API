@@ -30,9 +30,12 @@ public class RegistrarUsuarioAdapter implements RegistrarUsuarioOutputPort {
 
         String senhaCriptografada = passwordEncoder.encode(usuario.getPassword());
         Usuario novoUsuario = new Usuario(usuario.getId(), usuario.getNome(), usuario.getSobrenome(), usuario.getTelefone(), usuario.getLogin(), senhaCriptografada, usuario.isAtivo(), usuario.getUsuarioRole());
+        System.out.println("novoUsuario: " + novoUsuario.toString());
 
+        var usuarioConvertido = usuarioMapper.fromDomainToEntity((novoUsuario));
+        System.out.println("usuarioConvertido: " + usuarioConvertido.toString());
         try {
-            usuarioRepository.save(usuarioMapper.fromDomainToEntity(novoUsuario));
+            usuarioRepository.save(usuarioConvertido);
         } catch (ValidacaoException exception) {
             throw new ValidacaoException("Não foi possível salvar o usuário: " + exception.getMessage());
         }

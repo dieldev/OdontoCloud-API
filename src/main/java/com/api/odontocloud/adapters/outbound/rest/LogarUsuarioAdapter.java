@@ -7,6 +7,7 @@ import com.api.odontocloud.adapters.outbound.repository.UsuarioRepository;
 import com.api.odontocloud.application.core.exception.ValidacaoException;
 import com.api.odontocloud.application.ports.out.LogarUsuarioOutputPort;
 import com.api.odontocloud.infrastructure.security.TokenService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

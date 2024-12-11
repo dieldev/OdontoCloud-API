@@ -49,7 +49,6 @@ public class UsuarioMapper {
     // Converte Usuario para UsuarioEntity
     public UsuarioEntity fromDomainToEntity(Usuario usuario) {
         return new UsuarioEntity(
-                usuario.getId(),
                 usuario.getNome(),
                 usuario.getSobrenome(),
                 usuario.getTelefone(),
@@ -61,7 +60,8 @@ public class UsuarioMapper {
 
     // Converte UsuarioEntity para Usuario
     public Usuario fromEntityToDomain(UsuarioEntity usuarioEntity) {
-        return new Usuario(usuarioEntity.getId(),
+        return new Usuario(
+                usuarioEntity.getId(),
                 usuarioEntity.getNome(),
                 usuarioEntity.getSobrenome(),
                 usuarioEntity.getTelefone(),

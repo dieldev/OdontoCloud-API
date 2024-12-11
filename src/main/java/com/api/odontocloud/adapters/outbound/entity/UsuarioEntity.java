@@ -34,6 +34,16 @@ public class UsuarioEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UsuarioRole role;
 
+    public UsuarioEntity(String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole usuarioRole) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.telefone = telefone;
+        this.login = login;
+        this.password = password;
+        this.ativo = ativo;
+        this.role = usuarioRole;
+    }
+
     // Converte UsuarioEntity para Usuario (Domínio)
     public Usuario toDomain() {
         return new Usuario(
