@@ -1,6 +1,6 @@
 package com.api.odontocloud.adapters.inbound.user;
 
-import com.api.odontocloud.adapters.outbound.entity.UsuarioEntity;
+import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,11 +21,11 @@ public class UserAuthenticationAdapter implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com o login " + username));
     }
 
-    private UserDetails toUserDetails(UsuarioEntity usuarioEntity) {
+    private UserDetails toUserDetails(JpaUsuarioEntity jpaUsuarioEntity) {
         return org.springframework.security.core.userdetails.User.builder()
-                .username(usuarioEntity.getUsername())
-                .password(usuarioEntity.getPassword())
-                .roles(String.valueOf(usuarioEntity.getRole()))
+                .username(jpaUsuarioEntity.getUsername())
+                .password(jpaUsuarioEntity.getPassword())
+                .roles(String.valueOf(jpaUsuarioEntity.getRole()))
                 .build();
     }
 }

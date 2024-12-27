@@ -3,7 +3,7 @@ package com.api.odontocloud.adapters.mapper;
 import com.api.odontocloud.adapters.inbound.dto.auth.LoginRequestDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterResponseDTO;
-import com.api.odontocloud.adapters.outbound.entity.UsuarioEntity;
+import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
 import com.api.odontocloud.application.core.domain.Usuario;
 import org.springframework.stereotype.Component;
 
@@ -46,9 +46,9 @@ public class UsuarioMapper {
         return new LoginRequestDTO(usuario.getLogin(), usuario.getPassword());
     }
 
-    // Converte Usuario para UsuarioEntity
-    public UsuarioEntity fromDomainToEntity(Usuario usuario) {
-        return new UsuarioEntity(
+    // Converte Usuario para JpaUsuarioEntity
+    public JpaUsuarioEntity fromDomainToEntity(Usuario usuario) {
+        return new JpaUsuarioEntity(
                 usuario.getNome(),
                 usuario.getSobrenome(),
                 usuario.getTelefone(),
@@ -58,17 +58,17 @@ public class UsuarioMapper {
                 usuario.getUsuarioRole());
     }
 
-    // Converte UsuarioEntity para Usuario
-    public Usuario fromEntityToDomain(UsuarioEntity usuarioEntity) {
+    // Converte JpaUsuarioEntity para Usuario
+    public Usuario fromEntityToDomain(JpaUsuarioEntity jpaUsuarioEntity) {
         return new Usuario(
-                usuarioEntity.getId(),
-                usuarioEntity.getNome(),
-                usuarioEntity.getSobrenome(),
-                usuarioEntity.getTelefone(),
-                usuarioEntity.getLogin(),
-                usuarioEntity.getPassword(),
-                usuarioEntity.isAtivo(),
-                usuarioEntity.getRole());
+                jpaUsuarioEntity.getId(),
+                jpaUsuarioEntity.getNome(),
+                jpaUsuarioEntity.getSobrenome(),
+                jpaUsuarioEntity.getTelefone(),
+                jpaUsuarioEntity.getLogin(),
+                jpaUsuarioEntity.getPassword(),
+                jpaUsuarioEntity.isAtivo(),
+                jpaUsuarioEntity.getRole());
     }
 
     // Converte Usuario para RegisterResponseDTO

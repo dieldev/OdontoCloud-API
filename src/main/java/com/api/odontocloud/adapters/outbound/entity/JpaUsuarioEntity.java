@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class UsuarioEntity implements UserDetails {
+public class JpaUsuarioEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class UsuarioEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UsuarioRole role;
 
-    public UsuarioEntity(String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole usuarioRole) {
+    public JpaUsuarioEntity(String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole usuarioRole) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.telefone = telefone;
@@ -59,8 +59,8 @@ public class UsuarioEntity implements UserDetails {
     }
 
     // Converte Usuario (Domínio) para UsuarioEntity
-    public static UsuarioEntity fromDomain(Usuario usuario) {
-        return new UsuarioEntity(
+    public static JpaUsuarioEntity fromDomain(Usuario usuario) {
+        return new JpaUsuarioEntity(
                 usuario.getId(),
                 usuario.getNome(),
                 usuario.getSobrenome(),

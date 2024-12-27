@@ -1,21 +1,15 @@
 package com.api.odontocloud.adapters.inbound.controller.auth;
 
 import com.api.odontocloud.adapters.inbound.dto.auth.LoginRequestDTO;
-import com.api.odontocloud.adapters.inbound.dto.auth.LoginResponseDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
-import com.api.odontocloud.adapters.inbound.dto.auth.RegisterResponseDTO;
 import com.api.odontocloud.adapters.mapper.UsuarioMapper;
-import com.api.odontocloud.adapters.outbound.entity.UsuarioEntity;
 import com.api.odontocloud.application.ports.in.LogarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.RegistrarUsuarioInputPort;
 import com.api.odontocloud.infrastructure.security.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
