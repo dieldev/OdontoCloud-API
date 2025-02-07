@@ -1,6 +1,7 @@
 package com.api.odontocloud.adapters.outbound.rest;
 
 import com.api.odontocloud.adapters.mapper.UsuarioMapper;
+import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.repository.UsuarioRepository;
 import com.api.odontocloud.application.core.domain.Usuario;
 import com.api.odontocloud.application.ports.out.SalvarUsuarioOutputPort;
@@ -19,6 +20,14 @@ public class SalvarUsuarioAdapter implements SalvarUsuarioOutputPort {
 
     @Override
     public void execute(Usuario usuario) {
-        usuarioRepository.save(usuarioMapper.fromDomainToEntity(usuario));
+        JpaUsuarioEntity usuarioEntity = usuarioMapper.toJpaEntity(usuario);
+        usuarioEntity.setDetalhes(usuarioMapper.toJpaEntity(usuario.getDetalhesUsuario()));
+        System.out.println("");
+        System.out.println("usuarioEntity: ");
+        System.out.println(usuarioEntity);
+        System.out.println("");
+        System.out.println("detalhes: ");
+        System.out.println(usuarioEntity.getDetalhes());
+        usuarioRepository.save(usuarioEntity);
     }
 }

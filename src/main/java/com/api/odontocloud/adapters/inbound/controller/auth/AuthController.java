@@ -20,8 +20,6 @@ public class AuthController {
     private final RegistrarUsuarioInputPort registrarUsuarioInputPort;
     private final LogarUsuarioInputPort logarUsuarioInputPort;
     private final UsuarioMapper usuarioMapper;
-    private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
 
     @PostMapping("/register")
     public ResponseEntity registrarUsuario(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
@@ -31,5 +29,10 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
         return ResponseEntity.ok(logarUsuarioInputPort.execute(loginRequestDTO));
+    }
+
+    @PutMapping
+    public ResponseEntity atualizarUsuario(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
+        return ResponseEntity.ok("");
     }
 }

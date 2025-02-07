@@ -19,7 +19,7 @@ public class TokenServiceAdapter implements TokenServiceOutputPort {
 
     @Override
     public String gerarToken(Usuario usuario) {
-        return tokenService.gerarToken(usuarioMapper.fromDomainToEntity(usuario));
+        return tokenService.gerarToken(usuarioMapper.toJpaEntity(usuario));
     }
 
     @Override

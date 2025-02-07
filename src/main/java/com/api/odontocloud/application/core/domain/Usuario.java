@@ -12,9 +12,11 @@ public class Usuario {
     private String password;
     private boolean ativo;
     private UsuarioRole usuarioRole;
+    private DetalhesUsuario detalhesUsuario;
 
     public Usuario() {}
 
+    // Construtor recebendo um usuário SEM detalhes
     public Usuario(Integer id, String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole usuarioRole) {
         if (id != null) {
             this.id = id;
@@ -26,6 +28,21 @@ public class Usuario {
         this.password = password;
         this.ativo = ativo;
         this.usuarioRole = usuarioRole;
+    }
+
+    // Construtor recebendo um usuário COM detalhes
+    public Usuario(Integer id, String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole usuarioRole, DetalhesUsuario detalhesUsuario) {
+        if (id != null) {
+            this.id = id;
+        }
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.telefone = telefone;
+        this.login = login;
+        this.password = password;
+        this.ativo = ativo;
+        this.usuarioRole = usuarioRole;
+        this.detalhesUsuario = detalhesUsuario;
     }
 
     public Usuario(String login, String password) {
@@ -97,6 +114,14 @@ public class Usuario {
         this.usuarioRole = usuarioRole;
     }
 
+    public DetalhesUsuario getDetalhesUsuario() {
+        return detalhesUsuario;
+    }
+
+    public void setDetalhesUsuario(DetalhesUsuario detalhesUsuario) {
+        this.detalhesUsuario = detalhesUsuario;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -121,6 +146,7 @@ public class Usuario {
                 ", password='" + password + '\'' +
                 ", ativo=" + ativo +
                 ", usuarioRole=" + usuarioRole +
+                ", detalhesUsuarioId=" + (detalhesUsuario != null ? detalhesUsuario.getId() : "null") +
                 '}';
     }
 }
