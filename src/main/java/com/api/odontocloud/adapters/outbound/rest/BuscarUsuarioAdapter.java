@@ -1,6 +1,7 @@
 package com.api.odontocloud.adapters.outbound.rest;
 
 import com.api.odontocloud.adapters.mapper.UsuarioMapper;
+import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.repository.UsuarioRepository;
 import com.api.odontocloud.application.core.domain.Usuario;
 import com.api.odontocloud.application.ports.out.BuscarUsuarioOutputPort;
@@ -19,6 +20,13 @@ public class BuscarUsuarioAdapter implements BuscarUsuarioOutputPort {
 
     @Override
     public Usuario findByLogin(String login) {
+        System.out.println("");
+        System.out.println("");
+        JpaUsuarioEntity usuarioTeste = usuarioRepository.findByLogin(login).get();
+        System.out.println("usuarioTeste: " + usuarioTeste);
+        System.out.println("detalhesUsuarioTeste: " + usuarioTeste.getDetalhes());
+        System.out.println("");
+        System.out.println("");
         return usuarioMapper.fromEntityToDomain(usuarioRepository.findByLogin(login).get());
     }
 

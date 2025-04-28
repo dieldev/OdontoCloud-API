@@ -12,7 +12,7 @@ public class JpaDetalhesUsuarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @OneToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     private JpaUsuarioEntity usuario;
@@ -25,7 +25,9 @@ public class JpaDetalhesUsuarioEntity {
 
     public JpaDetalhesUsuarioEntity(int id, JpaUsuarioEntity usuario, String cro, LocalDateTime dataCadastro, LocalDateTime dataAtualizacao, LocalDateTime dataBloqueio) {
         this.id = id;
-        this.usuario = usuario;
+        if (usuario != null) {
+            this.usuario = usuario;
+        }
         this.cro = cro;
         this.dataCadastro = dataCadastro;
         this.dataAtualizacao = dataAtualizacao;
@@ -40,7 +42,7 @@ public class JpaDetalhesUsuarioEntity {
         this.dataBloqueio = dataBloqueio;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -105,7 +107,6 @@ public class JpaDetalhesUsuarioEntity {
     public String toString() {
         return "JpaDetalhesUsuarioEntity{" +
                 "id=" + id +
-                ", usuario=" + usuario +
                 ", cro='" + cro + '\'' +
                 ", dataCadastro=" + dataCadastro +
                 ", dataAtualizacao=" + dataAtualizacao +

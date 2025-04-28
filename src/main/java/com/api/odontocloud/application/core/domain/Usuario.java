@@ -1,5 +1,7 @@
 package com.api.odontocloud.application.core.domain;
 
+import com.api.odontocloud.adapters.outbound.entity.JpaDetalhesUsuarioEntity;
+
 import java.util.Objects;
 
 public class Usuario {
@@ -48,6 +50,9 @@ public class Usuario {
     public Usuario(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public Usuario(int id, String nome, String sobrenome, String telefone, String login, String password, boolean ativo, UsuarioRole role, JpaDetalhesUsuarioEntity detalhes) {
     }
 
     public Integer getId() {

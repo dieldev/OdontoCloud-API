@@ -5,16 +5,17 @@ import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterResponseDTO;
 import com.api.odontocloud.adapters.outbound.entity.JpaDetalhesUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
+import com.api.odontocloud.adapters.outbound.repository.DetalhesUsuarioRepository;
 import com.api.odontocloud.application.core.domain.DetalhesUsuario;
 import com.api.odontocloud.application.core.domain.Usuario;
-import com.api.odontocloud.application.core.domain.UsuarioRole;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Component
 public class UsuarioMapper {
+
+    private DetalhesUsuarioRepository detalhesUsuarioRepository;
 
     // Converte RegisterRequestDTO para Usuario
     public Usuario registerDtoToDomain(RegisterRequestDTO registerRequestDTO) {
@@ -30,25 +31,20 @@ public class UsuarioMapper {
 
         DetalhesUsuario detalhesUsuario = new DetalhesUsuario();
         detalhesUsuario.setDataCadastro(LocalDateTime.now());
-        // ESTÁ COM ERRO, PORQUE ESTÁ RELACIONANDO UM OBJETO USUÁRIO QUE AINDA NÃO TEM ID
-        detalhesUsuario.setUsuario(novoUsuario);
-
-        novoUsuario.setDetalhesUsuario(detalhesUsuario);
 
         switch (registerRequestDTO.usuarioRole()) {
             case ADMIN:
-                // Adicionar detalhes se necessário
                 break;
             case DENTISTA:
                 detalhesUsuario.setCro(registerRequestDTO.cro());
                 break;
             case RECEPCIONISTA:
-                // Adicionar detalhes se necessário
                 break;
             case USER:
-                // Adicionar detalhes se necessário
                 break;
         }
+
+        novoUsuario.setDetalhesUsuario(detalhesUsuario);
 
         return novoUsuario;
     }
@@ -67,6 +63,18 @@ public class UsuarioMapper {
 
     // Converte JpaUsuarioEntity para Usuario
     public Usuario fromEntityToDomain(JpaUsuarioEntity jpaUsuarioEntity) {
+        if (jpaUsuarioEntity.getDetalhes().getId() != null) {
+            return new Usuario(
+                    jpaUsuarioEntity.getId(),
+                    jpaUsuarioEntity.getNome(),
+                    jpaUsuarioEntity.getSobrenome(),
+                    jpaUsuarioEntity.getTelefone(),
+                    jpaUsuarioEntity.getLogin(),
+                    jpaUsuarioEntity.getPassword(),
+                    jpaUsuarioEntity.isAtivo(),
+                    jpaUsuarioEntity.getRole(),
+                    fromEntitytoDomain(jpaUsuarioEntity.getDetalhes()));
+        }
         return new Usuario(
                 jpaUsuarioEntity.getId(),
                 jpaUsuarioEntity.getNome(),
@@ -107,6 +115,7 @@ public class UsuarioMapper {
         usuarioEntity.setRole(usuario.getUsuarioRole());
         if (usuario.getDetalhesUsuario().getId() != null) {
             usuarioEntity.setDetalhes(toJpaEntity(usuario.getDetalhesUsuario()));
+            return usuarioEntity;
         }
 
         return usuarioEntity;
@@ -122,10 +131,19 @@ public class UsuarioMapper {
         detalhesEntity.setDataCadastro(detalhesUsuario.getDataCadastro());
         detalhesEntity.setDataAtualizacao(detalhesUsuario.getDataAtualizacao());
         detalhesEntity.setDataBloqueio(detalhesUsuario.getDataBloqueio());
-        if (detalhesUsuario.getId() != null) {
-            detalhesEntity.setUsuario(toJpaEntity(detalhesUsuario.getUsuario()));
-        }
 
         return detalhesEntity;
+    }
+
+    // Converte JpaDetalhesUsuarioEntity para DetalhesUsuario
+    public DetalhesUsuario fromEntitytoDomain(JpaDetalhesUsuarioEntity jpaDetalhesUsuarioEntity) {
+        return new DetalhesUsuario(
+                jpaDetalhesUsuarioEntity.getId(),
+                null,
+                jpaDetalhesUsuarioEntity.getCro(),
+                jpaDetalhesUsuarioEntity.getDataCadastro(),
+                jpaDetalhesUsuarioEntity.getDataAtualizacao(),
+                jpaDetalhesUsuarioEntity.getDataBloqueio()
+        );
     }
 }

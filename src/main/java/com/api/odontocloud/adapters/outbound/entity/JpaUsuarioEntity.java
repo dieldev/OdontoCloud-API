@@ -31,7 +31,7 @@ public class JpaUsuarioEntity implements UserDetails {
     private String password;
     private boolean ativo;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private JpaDetalhesUsuarioEntity detalhes;
 
     @Enumerated(EnumType.STRING)

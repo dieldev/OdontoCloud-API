@@ -18,7 +18,9 @@ public class DetalhesUsuario {
         if (id != null) {
             this.id = id;
         }
-        this.usuario = usuario;
+        if (usuario != null) {
+            this.usuario = usuario;
+        }
         this.cro = cro;
         this.dataCadastro = dataCadastro;
         this.dataAtualizacao = dataAtualizacao;
