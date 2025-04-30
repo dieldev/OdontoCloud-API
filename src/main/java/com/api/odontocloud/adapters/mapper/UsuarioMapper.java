@@ -2,6 +2,7 @@ package com.api.odontocloud.adapters.mapper;
 
 import com.api.odontocloud.adapters.inbound.dto.auth.LoginRequestDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
+import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRespondeDetalhesDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterResponseDTO;
 import com.api.odontocloud.adapters.outbound.entity.JpaDetalhesUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
@@ -88,6 +89,7 @@ public class UsuarioMapper {
 
     // Converte Usuario para RegisterResponseDTO
     public RegisterResponseDTO fromUsuariotoDtoRegisterResponse(Usuario usuario) {
+        RegisterRespondeDetalhesDTO detalhesUsuario = new RegisterRespondeDetalhesDTO(usuario.getDetalhesUsuario().getId(), usuario.getDetalhesUsuario().getCro(), usuario.getDetalhesUsuario().getDataCadastro());
         return new RegisterResponseDTO(
                 usuario.getId() == null ? null : usuario.getId(),
                 usuario.getNome(),
@@ -97,7 +99,8 @@ public class UsuarioMapper {
                 usuario.getPassword(),
                 usuario.isAtivo(),
                 usuario.getUsuarioRole(),
-                usuario.getDetalhesUsuario());
+
+                detalhesUsuario);
     }
 
     // Converte Usuario para JpaUsuarioEntity

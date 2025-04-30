@@ -20,13 +20,6 @@ public class BuscarUsuarioAdapter implements BuscarUsuarioOutputPort {
 
     @Override
     public Usuario findByLogin(String login) {
-        System.out.println("");
-        System.out.println("");
-        JpaUsuarioEntity usuarioTeste = usuarioRepository.findByLogin(login).get();
-        System.out.println("usuarioTeste: " + usuarioTeste);
-        System.out.println("detalhesUsuarioTeste: " + usuarioTeste.getDetalhes());
-        System.out.println("");
-        System.out.println("");
         return usuarioMapper.fromEntityToDomain(usuarioRepository.findByLogin(login).get());
     }
 

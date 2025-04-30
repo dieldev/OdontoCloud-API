@@ -1,6 +1,5 @@
 package com.api.odontocloud.adapters.inbound.dto.auth;
 
-import com.api.odontocloud.application.core.domain.DetalhesUsuario;
 import com.api.odontocloud.application.core.domain.UsuarioRole;
 
 public record RegisterResponseDTO(
@@ -12,5 +11,5 @@ public record RegisterResponseDTO(
         String password,
         boolean ativo,
         UsuarioRole usuarioRole,
-        DetalhesUsuario detalhesUsuario) {
+        RegisterRespondeDetalhesDTO detalhesUsuario) {
 }
