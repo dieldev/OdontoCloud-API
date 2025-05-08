@@ -27,4 +27,6 @@ public class BuscarUsuarioAdapter implements BuscarUsuarioOutputPort {
     public Usuario findById(Long id) {
         return usuarioMapper.fromEntityToDomain(usuarioRepository.findById(id).get());
     }
+
+
 }

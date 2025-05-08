@@ -1,9 +1,6 @@
 package com.api.odontocloud.adapters.mapper;
 
-import com.api.odontocloud.adapters.inbound.dto.auth.LoginRequestDTO;
-import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
-import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRespondeDetalhesDTO;
-import com.api.odontocloud.adapters.inbound.dto.auth.RegisterResponseDTO;
+import com.api.odontocloud.adapters.inbound.dto.auth.*;
 import com.api.odontocloud.adapters.outbound.entity.JpaDetalhesUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.entity.JpaUsuarioEntity;
 import com.api.odontocloud.adapters.outbound.repository.DetalhesUsuarioRepository;
@@ -53,8 +50,8 @@ public class UsuarioMapper {
     // Converte LoginRequestDTO para Usuario
     public Usuario loginToDomain(LoginRequestDTO loginRequestDTO) {
         return new Usuario(
-                loginRequestDTO.getLogin(),
-                loginRequestDTO.getPassword());
+                loginRequestDTO.login(),
+                loginRequestDTO.password());
     }
 
     // Converte Usuario para LoginRequestDTO
@@ -148,5 +145,52 @@ public class UsuarioMapper {
                 jpaDetalhesUsuarioEntity.getDataAtualizacao(),
                 jpaDetalhesUsuarioEntity.getDataBloqueio()
         );
+    }
+
+    // Converte RegisterRequestDTO para Usuario
+    public Usuario updateDtoToDomain(UpdateUserRequestDTO updateUserRequestDTO) {
+
+        Usuario novoUsuario = new Usuario();
+        novoUsuario.setNome(updateUserRequestDTO.nome());
+        novoUsuario.setSobrenome(updateUserRequestDTO.sobrenome());
+        novoUsuario.setTelefone(updateUserRequestDTO.telefone());
+        novoUsuario.setLogin(updateUserRequestDTO.login());
+        novoUsuario.setPassword(updateUserRequestDTO.password());
+        novoUsuario.setAtivo(true);
+        novoUsuario.setUsuarioRole(updateUserRequestDTO.usuarioRole());
+
+        DetalhesUsuario detalhesUsuario = new DetalhesUsuario();
+
+        switch (updateUserRequestDTO.usuarioRole()) {
+            case ADMIN:
+                break;
+            case DENTISTA:
+                detalhesUsuario.setCro(updateUserRequestDTO.cro());
+                break;
+            case RECEPCIONISTA:
+                break;
+            case USER:
+                break;
+        }
+
+        novoUsuario.setDetalhesUsuario(detalhesUsuario);
+
+        return novoUsuario;
+    }
+
+    // Converte Usuario para UpdateUserResponseDTO
+    public UpdateUserResponseDTO fromUsuariotoDtoUpdateResponse(Usuario usuario) {
+        UpdateRespondeDetalhesDTO detalhesUsuario = new UpdateRespondeDetalhesDTO(usuario.getDetalhesUsuario().getId(), usuario.getDetalhesUsuario().getCro(), usuario.getDetalhesUsuario().getDataAtualizacao(), usuario.getDetalhesUsuario().getDataCadastro());
+        return new UpdateUserResponseDTO(
+                usuario.getId() == null ? null : usuario.getId(),
+                usuario.getNome(),
+                usuario.getSobrenome(),
+                usuario.getTelefone(),
+                usuario.getLogin(),
+                usuario.getPassword(),
+                usuario.isAtivo(),
+                usuario.getUsuarioRole(),
+
+                detalhesUsuario);
     }
 }

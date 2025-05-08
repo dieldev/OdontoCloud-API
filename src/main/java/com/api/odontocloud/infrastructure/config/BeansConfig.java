@@ -1,8 +1,10 @@
 package com.api.odontocloud.infrastructure.config;
 
+import com.api.odontocloud.application.core.usecase.AtualizarUsuarioUseCase;
 import com.api.odontocloud.application.core.usecase.LogarUsuarioUseCase;
 import com.api.odontocloud.application.core.usecase.RegistrarUsuarioUseCase;
 import com.api.odontocloud.application.core.validation.usuario.UsuarioValidation;
+import com.api.odontocloud.application.ports.in.AtualizarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.LogarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.RegistrarUsuarioInputPort;
 import com.api.odontocloud.application.ports.out.*;
@@ -46,5 +48,21 @@ public class BeansConfig {
                 verificarUsuarioOutputPort,
                 authenticationOutputPort,
                 tokenServiceOutputPort);
+    }
+
+    @Bean
+    public AtualizarUsuarioInputPort atualizarUsuarioImpl(
+            AtualizarUsuarioOutputPort atualizarUsuarioOutputPort,
+            VerificarUsuarioOutputPort verificarUsuarioOutputPort,
+            CriptografarSenhaOutputPort criptografarSenhaOutputPort,
+            List<UsuarioValidation> usuarioValidation,
+            BuscarUsuarioOutputPort buscarUsuarioOutputPort) {
+
+        return new AtualizarUsuarioUseCase(
+                atualizarUsuarioOutputPort,
+                verificarUsuarioOutputPort,
+                criptografarSenhaOutputPort,
+                usuarioValidation,
+                buscarUsuarioOutputPort);
     }
 }

@@ -17,4 +17,8 @@ public class VerificarUsuarioAdapter implements VerificarUsuarioOutputPort {
     public boolean existsByLogin(String login) {
         return usuarioRepository.existsByLogin(login);
     }
+
+    public boolean existsById(Long id) {
+        return usuarioRepository.existsById(id);
+    }
 }

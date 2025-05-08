@@ -24,12 +24,12 @@ public class LogarUsuarioUseCase implements LogarUsuarioInputPort {
 
     @Override
     public LoginResponseDTO execute(LoginRequestDTO loginRequestDTO) {
-        if (!verificarUsuarioOutputPort.existsByLogin(loginRequestDTO.getLogin())) {
+        if (!verificarUsuarioOutputPort.existsByLogin(loginRequestDTO.login())) {
             throw new ValidacaoException("Usuário não encontrado!");
         }
 
-        authenticationOutputPort.authenticate(loginRequestDTO.getLogin(), loginRequestDTO.getPassword());
+        authenticationOutputPort.authenticate(loginRequestDTO.login(), loginRequestDTO.password());
 
-        return logarUsuarioOutputPort.execute(tokenServiceOutputPort.gerarToken(buscarUsuarioOutputPort.findByLogin(loginRequestDTO.getLogin())));
+        return logarUsuarioOutputPort.execute(tokenServiceOutputPort.gerarToken(buscarUsuarioOutputPort.findByLogin(loginRequestDTO.login())));
     }
 }

@@ -2,7 +2,9 @@ package com.api.odontocloud.adapters.inbound.controller.auth;
 
 import com.api.odontocloud.adapters.inbound.dto.auth.LoginRequestDTO;
 import com.api.odontocloud.adapters.inbound.dto.auth.RegisterRequestDTO;
+import com.api.odontocloud.adapters.inbound.dto.auth.UpdateUserRequestDTO;
 import com.api.odontocloud.adapters.mapper.UsuarioMapper;
+import com.api.odontocloud.application.ports.in.AtualizarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.LogarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.RegistrarUsuarioInputPort;
 import com.api.odontocloud.infrastructure.security.TokenService;
@@ -19,6 +21,7 @@ public class AuthController {
 
     private final RegistrarUsuarioInputPort registrarUsuarioInputPort;
     private final LogarUsuarioInputPort logarUsuarioInputPort;
+    private final AtualizarUsuarioInputPort atualizarUsuarioInputPort;
     private final UsuarioMapper usuarioMapper;
 
     @PostMapping("/register")
@@ -31,8 +34,8 @@ public class AuthController {
         return ResponseEntity.ok(logarUsuarioInputPort.execute(loginRequestDTO));
     }
 
-    @PutMapping
-    public ResponseEntity atualizarUsuario(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
-        return ResponseEntity.ok("");
+    @PutMapping("/update/{id}")
+    public ResponseEntity atualizarUsuario(@RequestBody UpdateUserRequestDTO updateUserRequestDTO, @PathVariable Long id) {
+        return ResponseEntity.ok(atualizarUsuarioInputPort.execute(usuarioMapper.updateDtoToDomain(updateUserRequestDTO), id));
     }
 }
