@@ -7,11 +7,9 @@ import com.api.odontocloud.adapters.mapper.UsuarioMapper;
 import com.api.odontocloud.application.ports.in.AtualizarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.LogarUsuarioInputPort;
 import com.api.odontocloud.application.ports.in.RegistrarUsuarioInputPort;
-import com.api.odontocloud.infrastructure.security.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

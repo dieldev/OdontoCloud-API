@@ -1,15 +1,11 @@
-package com.api.odontocloud.adapters.outbound.entity;
+package com.api.odontocloud.application.core.domain;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
-@Entity
-public class JpaPacienteEntity {
+public class Paciente {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String sobrenome;
@@ -26,10 +22,12 @@ public class JpaPacienteEntity {
     private String cidade;
     private String uf;
 
-    public JpaPacienteEntity() {}
+    public Paciente() {}
 
-    public JpaPacienteEntity(Integer id, String nome, String sobrenome, String telefone, LocalDateTime dataCadastro, LocalDateTime dataAtualizacao, LocalDateTime dataBloqueio, String email, String logradouro, String bairro, String cep, String numero, String complemento, String cidade, String uf) {
-        this.id = id;
+    public Paciente(Integer id, String nome, String sobrenome, String telefone, LocalDateTime dataCadastro, LocalDateTime dataAtualizacao, LocalDateTime dataBloqueio, String email, String logradouro, String bairro, String cep, String numero, String complemento, String cidade, String uf) {
+        if (id != null) {
+            this.id = id;
+        }
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.telefone = telefone;
@@ -164,38 +162,5 @@ public class JpaPacienteEntity {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        JpaPacienteEntity that = (JpaPacienteEntity) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "JpaPacienteEntity{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", sobrenome='" + sobrenome + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", dataCadastro=" + dataCadastro +
-                ", dataAtualizacao=" + dataAtualizacao +
-                ", dataBloqueio=" + dataBloqueio +
-                ", email='" + email + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cep='" + cep + '\'' +
-                ", numero='" + numero + '\'' +
-                ", complemento='" + complemento + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", uf='" + uf + '\'' +
-                '}';
     }
 }

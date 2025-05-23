@@ -1,4 +1,4 @@
-package com.api.odontocloud.adapters.inbound.controller.auth;
+package com.api.odontocloud.adapters.inbound.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

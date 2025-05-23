@@ -1,12 +1,8 @@
 package com.api.odontocloud.infrastructure.config;
 
-import com.api.odontocloud.application.core.usecase.AtualizarUsuarioUseCase;
-import com.api.odontocloud.application.core.usecase.LogarUsuarioUseCase;
-import com.api.odontocloud.application.core.usecase.RegistrarUsuarioUseCase;
+import com.api.odontocloud.application.core.usecase.*;
 import com.api.odontocloud.application.core.validation.usuario.UsuarioValidation;
-import com.api.odontocloud.application.ports.in.AtualizarUsuarioInputPort;
-import com.api.odontocloud.application.ports.in.LogarUsuarioInputPort;
-import com.api.odontocloud.application.ports.in.RegistrarUsuarioInputPort;
+import com.api.odontocloud.application.ports.in.*;
 import com.api.odontocloud.application.ports.out.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -64,5 +60,33 @@ public class BeansConfig {
                 criptografarSenhaOutputPort,
                 usuarioValidation,
                 buscarUsuarioOutputPort);
+    }
+
+    @Bean
+    public GetAllPacientesInputPort getAllPacientesImpl(
+            BuscarPacienteOutputPort buscarPacienteOutputPort) {
+
+        return new GetAllPacientesUseCase(buscarPacienteOutputPort);
+    }
+
+    @Bean
+    public GetPacienteByIdInputPort getPacienteByIdImpl(
+            BuscarPacienteOutputPort buscarPacienteOutputPort) {
+
+        return new GetPacienteByIdUseCase(buscarPacienteOutputPort);
+    }
+
+    @Bean
+    public NovoPacienteInputPort novoPacienteImpl(
+            SalvarPacienteOutputPort salvarPacienteOutputPort) {
+
+        return new NovoPacienteUseCase(salvarPacienteOutputPort);
+    }
+
+    @Bean
+    public AtualizarPacienteInputPort atualizarPacienteImpl(
+            BuscarPacienteOutputPort buscarPacienteOutputPort) {
+
+        return new AtualizarPacienteUseCase(buscarPacienteOutputPort);
     }
 }
