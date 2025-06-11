@@ -23,13 +23,11 @@ public class PacienteController {
     private final NovoPacienteInputPort novoPacienteInputPort;
     private final AtualizarPacienteInputPort atualizarPacienteInputPort;
 
-    // CORRIGIR PARA VIR APENAS OS PACIENTES QUE NÃO TEM DATA DE BLOQUEIO
     @GetMapping
     public ResponseEntity getAllPacientes() {
         return ResponseEntity.ok(getAllPacientesInputPort.execute());
     }
 
-    // CORRIGIR PARA VIR APENAS OS PACIENTES QUE NÃO TEM DATA DE BLOQUEIO
     @GetMapping("/{id}")
     public ResponseEntity getPacienteById(@PathVariable Long id) {
         return ResponseEntity.ok(getPacienteByIdInputPort.execute(id));
